@@ -5,8 +5,12 @@
 // request headers already contains the cookie
 
 
-export async function POST(request) {
-    const user="Abhishek@1604"
 
-    
+//Formdata structure : 
+
+
+
+export async function POST(request) {
+    const Data=await request.formData(); 
+
 }
