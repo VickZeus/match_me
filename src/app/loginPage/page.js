@@ -1,14 +1,14 @@
 "use client";
 import {useRouter} from "next/navigation";
 import { useState } from "react";
+import {FaUserCircle,FaLock,FaEnvelope} from "react-icons/fa"
 
 
-export function RegisterPage(){
+export function RegisterPage({setFlag,flag}){
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const [email, setEmail] = useState("");
-
 
   const router=useRouter();
 
@@ -30,34 +30,38 @@ export function RegisterPage(){
     }
   }
 
+
+
+
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <input
-          placeholder="Enter Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Enter Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <input
-          type="email"
-          placeholder="Enter Email ID"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <button type="submit">SUBMIT</button>
+    <div className=" h-screen w-screen flex flex-col justify-center items-center">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-2 justify-center items-center">
+        <div className="pix text-2xl mb-4">Register</div>
+        
+        <div className="flex gap-2 justify-center items-center">
+          <FaUserCircle className="text-[28px]"/>
+          <input className="text-[20px] rounded rounded-md pl-4" placeholder="Enter Username" value={username} onChange={(e) => setUsername(e.target.value)}/>
+        </div>
+
+        <div className="flex gap-2 justify-center items-center">
+          <FaLock className="text-[28px]"/>
+          <input type="password" placeholder="Enter Password" className="text-[20px] rounded rounded-md pl-4" value={password} onChange={(e) => setPassword(e.target.value)}/>
+        </div>
+        
+        <div className="flex gap-2 justify-center items-center">
+          <FaEnvelope className="text-[28px]"/>
+          <input type="email" placeholder="Enter Email ID" value={email} onChange={(e) => setEmail(e.target.value)} className="text-[20px] rounded rounded-md pl-4"/>        
+        </div>
+        
+        <button type="submit" className="pix text-xs bg-amber-50 text-black p-2 rounded rounded-lg mt-4">SUBMIT</button>
+        <button className="text-blue-500" onClick={() => setFlag(!flag)}>Login ?</button>      
       </form>
       <p>{message}</p>
     </div>
   );
 }
 
-export default function LoginPage() {
+export function LoginPage({setFlag,flag}) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -81,24 +85,51 @@ export default function LoginPage() {
         router.refresh();
     }
   }
+return (
+  <div className="h-screen w-screen flex flex-col justify-center items-center">
+    <form onSubmit={handleSubmit} className="flex flex-col gap-2 justify-center items-center">
+      <div className="pix text-2xl mb-4">Login</div>
 
-  return (
-    <div>
-      <form onSubmit={handleSubmit}>
+      <div className="flex gap-2 justify-center items-center">
+        <FaUserCircle className="text-[28px]" />
         <input
+          className="text-[20px] rounded-md pl-4"
           placeholder="Enter Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
+      </div>
+
+      <div className="flex gap-2 justify-center items-center">
+        <FaLock className="text-[28px]" />
         <input
           type="password"
           placeholder="Enter Password"
+          className="text-[20px] rounded-md pl-4"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit">SUBMIT</button>
-      </form>
-      <p>{message}</p>
-    </div>
-  );
+      </div>
+
+      <button type="submit" className="pix text-xs bg-amber-50 text-black p-2 rounded-lg mt-4">
+        SUBMIT
+      </button>
+      <button  className="text-blue-600" onClick={() => setFlag(!flag)}>New User ?</button>      
+
+    </form>
+    <p>{message}</p>
+  </div>
+);
 }
+
+
+export default function Login_Register(){
+  const [flag,setFlag]=useState(false)
+  return(
+    <div>
+        {(flag)?<LoginPage setFlag={setFlag} flag={flag}/>:<RegisterPage setFlag={setFlag} flag={flag}/>}
+    </div>
+  )
+}
+
+

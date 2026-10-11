@@ -1,8 +1,12 @@
+"use client";
+import {useRouter} from "next/navigation"
+
 function TopSection(){
+    const router=useRouter();
     return (
         <div className="pix flex justify-between mt-2 ml-2"> 
             MatchKARO
-            <p>P</p>
+            <button className="rounded rounded-sm bg-amber-50 text-black p-1 text-[12px]" onClick={()=>router.push("/loginPage")}>Login</button>
         </div>
     )
 }
@@ -12,9 +16,7 @@ function MiddleSection(){
     return (
         <div className="text-sm p-3">
             <div className="pix mb-2">Quizzes</div>
-            <div className="flex flex-wrap gap-2 border border-amber-50 rounded rounded-lg justify-center w-full h-60 bg-black/80 overflow-y-auto">
-
-            </div> 
+            <div className="flex flex-wrap gap-2 border border-amber-50 rounded rounded-lg justify-center w-full h-60 bg-black/80 overflow-y-auto"></div> 
         </div>
     )
 }
