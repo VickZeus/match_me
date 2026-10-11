@@ -1,8 +1,10 @@
-import Image from "next/image";
-import style from "@/styles/animations.module.css"
+"use client";
 
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import style from "@/styles/animations.module.css";
 
-import { Geist, Geist_Mono, Poppins,Press_Start_2P } from "next/font/google";
+import { Press_Start_2P } from "next/font/google";
 
 const press_start_2p = Press_Start_2P({
   variable: "--font-press_start",
@@ -10,8 +12,7 @@ const press_start_2p = Press_Start_2P({
   weight: ["400"],
 });
 
-
-function GRID(){
+function GRID() {
   return (
     <div className={style.grid}>
       <div></div>
@@ -24,19 +25,28 @@ function GRID(){
       <div></div>
       <div></div>
     </div>
-  )
+  );
 }
 
-
 export default function Home() {
+  const router = useRouter();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      router.replace("/home");
+    }, 10000); 
+
+    return () => clearTimeout(timer);
+  }, [router]);
+
   return (
     <div className={`${press_start_2p.variable} ${style.template}`}>
-        <div className={style.name}> 
-          <div>Match</div>
-          <div className={style.rowF}>
-            KARO <GRID/> 
-          </div>
+      <div className={style.name}>
+        <div>Match</div>
+        <div className={style.rowF}>
+          KARO <GRID />
         </div>
+      </div>
     </div>
   );
 }
