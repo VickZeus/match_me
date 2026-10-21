@@ -44,7 +44,7 @@ export default function Home() {
       <div className={style.name}>
         <div>Match</div>
         <div className={style.rowF}>
-          KARO <GRID />
+          KARO<GRID />
         </div>
       </div>
     </div>

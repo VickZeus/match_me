@@ -25,7 +25,7 @@ export function RegisterPage({setFlag,flag}){
     setMessage(data.message);
 
     if (res.ok) {
-        router.replace("/questionMake"); // change to homepage
+        router.replace("/home"); 
         router.refresh();
     }
   }
@@ -81,7 +81,7 @@ export function LoginPage({setFlag,flag}) {
     setMessage(data.message);
 
     if (res.ok) {
-        router.replace("/questionMake"); // change to homepage
+        router.replace("/home");
         router.refresh();
     }
   }
@@ -131,5 +131,7 @@ export default function Login_Register(){
     </div>
   )
 }
+
+
 
 
