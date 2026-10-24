@@ -88,7 +88,7 @@ function MiddleSection() {
                         {filtered.map((quiz) => (
                             <div
                                 key={quiz._id}
-                                className="bg-fuchsia-500 text-white p-2 rounded flex flex-col gap-1 text-xs"
+                                className="bg-purple-700 text-white p-2 rounded flex flex-col gap-1 text-xs"
                             >
                                 <div className="pix text-[8px] break-words">{quiz.quizName}</div>
                                 <div className="truncate text-[10px]">Created By : {quiz.createdBy}</div>

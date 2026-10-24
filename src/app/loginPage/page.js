@@ -28,6 +28,9 @@ export function RegisterPage({setFlag,flag}){
         router.replace("/home"); 
         router.refresh();
     }
+    else{
+      setMessage(err)
+    }
   }
 
 
@@ -54,7 +57,7 @@ export function RegisterPage({setFlag,flag}){
         </div>
         
         <button type="submit" className="pix text-xs bg-amber-50 text-black p-2 rounded rounded-lg mt-4">SUBMIT</button>
-        <button className="text-blue-500" onClick={() => setFlag(!flag)}>Login ?</button>      
+        <button className="text-blue-500" onClick={() => setFlag(!flag)} type="button">Login ?</button>      
       </form>
       <p>{message}</p>
     </div>
@@ -114,7 +117,7 @@ return (
       <button type="submit" className="pix text-xs bg-amber-50 text-black p-2 rounded-lg mt-4">
         SUBMIT
       </button>
-      <button  className="text-blue-600" onClick={() => setFlag(!flag)}>New User ?</button>      
+      <button  type="button" className="text-blue-600" onClick={() => setFlag(!flag)}>New User ?</button>      
 
     </form>
     <p>{message}</p>
