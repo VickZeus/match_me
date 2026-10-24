@@ -13,7 +13,6 @@ export async function GET() {
             .find({}, { projection: {quizName:1,createdBy:1} }) // only these fields
             .sort({ createdAt: -1 })
             .toArray() // find() returns a cursor, toArray() actually fetches
-        console.log(quizzes)
         return NextResponse.json(quizzes)
     } catch (err) {
         console.error(err)

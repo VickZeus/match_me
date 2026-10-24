@@ -34,29 +34,74 @@ function TopSection(){
     )
 }
 
+function MiddleSection() {
+    const [quizzes, setQuizzes] = useState([])
+    const [mess, setMess] = useState("")
+    const [loading, setLoading] = useState(true)
+    const [search, setSearch] = useState("")
 
-function MiddleSection(){
-
-    async function getResults(){
-        try{
-            const res=await fetch("/api/fetchQuestion",{method:"GET"})
-            console.log(res.json())
-        }
-        catch(error){
+    async function getResults() {
+        try {
+            const res = await fetch("/api/fetchQuestion")
+            if (!res.ok) {
+                setMess("Quiz Fetch Failed.")
+                return
+            }
+            setQuizzes(await res.json())
+        } catch (error) {
             console.log(error)
+            setMess("Quiz Fetch Failed.")
+        } finally {
+            setLoading(false)
         }
     }
+
+    useEffect(() => {
+        getResults()
+    }, [])
+
+    const filtered = quizzes.filter((quiz) =>
+        quiz.quizName.toLowerCase().includes(search.toLowerCase())
+    )
+
     return (
         <div className="text-sm p-3">
             <div className="pix mb-2">Quizzes</div>
-            <div className="flex flex-wrap gap-2 border border-amber-50 rounded rounded-lg justify-center w-full h-60 bg-black/80 overflow-y-auto">
-                <button className="border border-amber-50 w-fit p-2 h-fit " onClick={getResults}>Get Results</button>
-            </div> 
+
+            <div className="flex flex-col gap-2 border border-amber-50 rounded-lg w-full h-60 p-2 bg-black/80">
+                <input
+                    type="text"
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    placeholder="Search"
+                    className="shrink-0 w-full bg-transparent border border-amber-50 rounded px-2 py-1 outline-none placeholder:text-amber-50/50"
+                />
+
+                <div className="flex-1 min-h-0 overflow-y-auto">
+                    {loading && <div className="text-center">Loading...</div>}
+                    {mess && <div className="text-center text-red-400">{mess}</div>}
+                    {!loading && !mess && filtered.length === 0 && (
+                        <div className="text-center">No quizzes found.</div>
+                    )}
+
+                    <div className="grid grid-cols-[repeat(auto-fill,minmax(130px,1fr))] gap-2">
+                        {filtered.map((quiz) => (
+                            <div
+                                key={quiz._id}
+                                className="bg-fuchsia-500 text-white p-2 rounded flex flex-col gap-1 text-xs"
+                            >
+                                <div className="pix text-[8px] break-words">{quiz.quizName}</div>
+                                <div className="truncate text-[10px]">Created By : {quiz.createdBy}</div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }
 
-
+    
 function LowerSection(){
     return (
         <div className="flex justify-around">
