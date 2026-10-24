@@ -4,6 +4,15 @@ import { useState } from "react";
 import {FaUserCircle,FaLock,FaEnvelope} from "react-icons/fa"
 
 
+import { useEffect } from "react";
+
+useEffect(() => {
+  if (process.env.NODE_ENV === "development") {
+    import("eruda").then((eruda) => eruda.default.init());
+  }
+}, []);
+
+
 export function RegisterPage({setFlag,flag}){
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
