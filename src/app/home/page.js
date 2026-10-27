@@ -35,6 +35,8 @@ function TopSection(){
 }
 
 function MiddleSection() {
+    const router=useRouter();
+
     const [quizzes, setQuizzes] = useState([])
     const [mess, setMess] = useState("")
     const [loading, setLoading] = useState(true)
@@ -115,7 +117,7 @@ function MiddleSection() {
 
     <button
         type="button"
-        onClick={() => console.log("start", chosen)}
+        onClick={() =>router.push(`/quizTake?quiz=${encodeURIComponent(chosen)}`)}
         className="bg-green-400 text-white text-xs px-4 py-2 rounded self-center"
     >
         Take The Quiz
