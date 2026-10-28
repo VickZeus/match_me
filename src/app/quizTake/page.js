@@ -19,7 +19,7 @@ function TestPage() {
     const router=useRouter();
     const answersRef = useRef(answers);          // always holds the latest answers
     const submittedRef = useRef(false);          // guards against double submit
-    useEffect(() => { answersRef.current = answers; }, [answers]);
+    useEffect(()=>{answersRef.current=answers;},[answers]);
 
     useEffect(() => {
         if (!quizName) {
