@@ -1,11 +1,11 @@
 "use client";
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useRef, useState,Suspense} from "react";
 import {useSearchParams,useRouter} from "next/navigation";
 
 
 const QUIZ_SECONDS = 120;
 
-export default function TestPage() {
+function TestPage() {
     const params = useSearchParams();
     const quizName = params.get("quiz");
 
@@ -140,4 +140,13 @@ export default function TestPage() {
             </form>
         </div>
     );
+}
+
+
+export default function QuizTakePage(){
+    return(
+        <Suspense fallback={<div>Loading...</div>}>
+            <TestPage/>
+        </Suspense>
+    )
 }
