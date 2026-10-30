@@ -28,6 +28,25 @@ function GRID() {
   );
 }
 
+
+export function GRIDR() {
+  return (
+    <div className={style.grid2}>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  );
+}
+
+
+
 export default function Home() {
   const router = useRouter();
 

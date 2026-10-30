@@ -1,6 +1,8 @@
 "use client";
 import {useRouter} from "next/navigation"
 import {useState,useEffect} from "react"
+import {GRIDR} from "@/app/page"
+
 
 function TopSection(){
     const router=useRouter();
@@ -24,6 +26,7 @@ function TopSection(){
     return (
         <div className="pix flex justify-between mt-2 ml-2"> 
             MatchKARO
+            <GRIDR/>
             {
                 (status)? 
                 <button className="rounded rounded-sm bg-purple-500 text-white p-1 text-[12px]" onClick={()=>router.push("/profile")}>Profile</button> :
@@ -67,7 +70,7 @@ function MiddleSection() {
     )
 
     return (
-        <div className="text-sm p-3">
+        <div className="text-sm p-3 rounded">
             <div className="pix mb-2">Quizzes</div>
 
             <div className="flex flex-col gap-2 border border-amber-50 rounded-lg w-full h-60 p-2 bg-black/80">
@@ -134,28 +137,76 @@ function MiddleSection() {
     
 function LowerSection(){
     return (
-        <div className="flex justify-around">
-            <UserScores/>
-            <FindPeople/>
+        <div className="flex flex-col justify-around">
+
         </div>
     )
 }
 
+function UserScores() {
+    const [scores, setScores] = useState(null); // null = loading
 
-function UserScores(){
+    useEffect(() => {
+        const load = () =>
+            fetch("/api/scores")
+                .then((r) => r.json())
+                .then((data) => setScores(Array.isArray(data) ? data : []))
+                .catch(() => setScores([]));
+
+        load();
+        window.addEventListener("focus", load); // refetch when the tab regains focus
+        return () => window.removeEventListener("focus", load);
+    }, []);
+
     return (
-        <div className="text-sm p-3 rounded-lg">
-            <div className="pix mb-2 text-[12px] ">User Scores</div>
-            <div className="bg-black/80 flex flex-wrap gap-2 border border-amber-50 justify-center w-full h-60 overflow-y-auto rounded rounded-lg">
-                
-            </div> 
+        <div className="p-3 rounded-lg ">
+            <div className="pix mb-2 text-[12px]">User Scores</div>
+            <div className="bg-black flex flex-col gap-2 border border-amber-50 w-full h-fit overflow-y-auto rounded-lg p-2">
+                {scores === null && (
+                    <p className="text-center text-gray-400 text-xs mt-4">Loading...</p>
+                )}
+
+                {scores?.length === 0 && (
+                    <p className="pix text-center text-gray-400 text-md mt-4">
+                        No scores yet. Take a quiz!
+                    </p>
+                )}
+
+                {scores?.map((s) => {
+                    const pct=Number(s.score).toFixed(2);
+                    const color ="bg-green-500" 
+                    return (
+                        <div key={s.quizname} className="rounded-lg bg-gray-900 p-2">
+                            <div className="text-[7px] truncate pix" title={s.quizname}>
+                                {s.quizname}
+                            </div>
+                            <div className="mt-1 flex items-center gap-2">
+                                <div
+                                    className="h-2 flex-1 rounded-full bg-white/10"
+                                    role="progressbar"
+                                    aria-valuenow={pct}
+                                    aria-valuemin={0}
+                                    aria-valuemax={100}
+                                    aria-label={`${s.quizname} score`}
+                                >
+                                    <div
+                                        className={`h-2 rounded-full ${color}`}
+                                        style={{ width: `${pct*100}%` }}
+                                    />
+                                </div>
+                                <span className="text-[11px] font-bold w-9 text-right">{pct} /1</span>
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
         </div>
-    )
+    );
 }
 
 function FindPeople(){
     return (
-        <div className="p-3 rounded-lg">
+        <div className="p-3 rounded-lg ">
             <div className="pix mb-2 text-[12px]">Find People</div>
             <div className="flex flex-wrap gap-2 border bg-black/80 border-amber-50 justify-center w-full h-60 bg-black-200 overflow-y-auto rounded rounded-lg ">
             </div> 
@@ -166,10 +217,11 @@ function FindPeople(){
 
 export default function HomePage(){
     return(
-        <div className="p-2 flex flex-col justify-center gap-5">
+        <div className="p-2 flex flex-col justify-center gap-3">
             <TopSection/>
             <MiddleSection/>
-            <LowerSection/>             
+            <UserScores/>
+            <FindPeople/>            
         </div>
     )
 }

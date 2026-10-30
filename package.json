@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.109.0",
+    "@upstash/redis": "^1.40.0",
     "@vercel/analytics": "^2.0.1",
     "bcryptjs": "^3.0.3",
     "eruda": "^3.4.3",

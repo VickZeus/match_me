@@ -52,8 +52,31 @@
 
   grid-template-columns: repeat(3, 1fr); /* 3 equal columns */  
   animation: rotate 10s infinite;                          /* space between cells */ 
-
 }
+
+.grid2{
+  display: grid;
+  background-color:transparent;
+  height:25px;
+  width:25px;
+
+  gap:1px;
+  transform-origin: 50% 50%;
+
+  grid-template-columns: repeat(3, 1fr); /* 3 equal columns */  
+  animation: rotate2 5s infinite;                          /* space between cells */ 
+}
+
+@keyframes rotate2{
+    0%{
+        transform:rotate(0deg);
+    }
+    100%{
+        transform:rotate(720deg);
+    }
+}
+
+
 
 @keyframes rotate{
     0%{
@@ -80,6 +103,20 @@
 .grid div:nth-child(8) { background-color: white; }  /* center */
 .grid div:nth-child(4) { background-color: white; }  /* bottom middle */
 .grid div:nth-child(6) { background-color: white; }  /* bottom middle */
+
+
+
+.grid2 div:nth-child(2) { background-color: white; }  /* top middle */
+.grid2 div:nth-child(5) { background-color: white; }  /* bottom middle */
+.grid2 div:nth-child(8) { background-color: white; }  /* center */
+.grid2 div:nth-child(4) { background-color: white; }  /* bottom middle */
+.grid2 div:nth-child(6) { background-color: white; }  /* bottom middle */
+
+.grid2>div{
+    height:8px;
+    width:8px;
+    border-radius:50%;
+}
 
 
 .grid>div{
