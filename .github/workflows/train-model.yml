@@ -37,4 +37,3 @@ jobs:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           SECRET_ACCESS_KEY: ${{ secrets.SECRET_ACCESS_KEY }}
         run: python -m ml.train
-        run: python -m ml.train
